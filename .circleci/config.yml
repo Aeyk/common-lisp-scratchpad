@@ -10,9 +10,9 @@ jobs:
       - checkout
       - run: apt update -y && apt install -y curl gpg
       - run: chmod a+x ./.circleci/*.sh
-      - run:
-          name: Install Quicklisp
-          command: .circleci/install_quicklisp.sh
+      # - run:
+      #     name: Install Quicklisp
+      #     command: .circleci/install_quicklisp.sh
       - run:
           name: Install Roswell Lisp Manager
           command: |
