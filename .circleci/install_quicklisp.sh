@@ -1,4 +1,4 @@
-#!/sh/bin
+#!/bin/sh
 
 curl -O https://beta.quicklisp.org/quicklisp.lisp
 curl -O https://beta.quicklisp.org/quicklisp.lisp.asc
