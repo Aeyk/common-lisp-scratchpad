@@ -15,14 +15,14 @@ jobs:
           command: .circleci/install_quicklisp.sh
       - run:
           name: Install Roswell Lisp Manager
-          pre:
-            - curl -L https://raw.githubusercontent.com/roswell/roswell/release/scripts/install-for-ci.sh | sh
-            - case $CIRCLE_NODE_INDEX in
-                0) ros config set default.lisp sbcl-bin ;;
-                1) ros install ccl-bin;
+          run: |
+            curl -L https://raw.githubusercontent.com/roswell/roswell/release/scripts/install-for-ci.sh | sh
+            case $CIRCLE_NODE_INDEX in
+              0) ros config set default.lisp sbcl-bin ;;
+              1) ros install ccl-bin;
                 ros config set default.lisp ccl-bin ;;
-              esac
-            - ros run -- --version
+            esac
+            ros run -- --version
       - run:
           name: Display SBCL information
           command: .circleci/sbcl_info.sh
