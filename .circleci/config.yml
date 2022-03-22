@@ -15,7 +15,7 @@ jobs:
           command: .circleci/install_quicklisp.sh
       - run:
           name: Install Roswell Lisp Manager
-          run: |
+          command: |
             curl -L https://raw.githubusercontent.com/roswell/roswell/release/scripts/install-for-ci.sh | sh
             case $CIRCLE_NODE_INDEX in
               0) ros config set default.lisp sbcl-bin ;;
