@@ -8,6 +8,7 @@ jobs:
           APP_ENV: test
     steps:
       - checkout
+      - run: apt update -y && apt install curl gpg
       - run: chmod a+x ./.circleci/*.sh
       - run:
           name: Install Quicklisp
