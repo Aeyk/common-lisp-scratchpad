@@ -1,0 +1,26 @@
+version: 2
+jobs:
+  build:
+    working_directory: /var/www/html
+    docker:
+      - image: fukamachi/sbcl:2.2.2-debian
+        environment:
+          APP_ENV: test
+    steps:
+      - checkout
+      - run: chmod a+x ./.circleci/*.sh
+      - run:
+          name: Install Quicklisp
+          command: .circleci/install_quicklisp.sh
+      - run:
+          name: Display SBCL information
+          command: .circleci/sbcl_info.sh
+      - run:
+          name: Install project dependencies
+          command: .circleci/install_deps.sh
+      # - run:
+      #     name: Run CS tests
+      #     command: .circleci/php_lint.sh
+      - run:
+          name: Run SBCL Unit tests
+          command: .circleci/sbcl_unit_tests.sh
