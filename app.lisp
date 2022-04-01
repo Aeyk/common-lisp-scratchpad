@@ -18,7 +18,7 @@
 		(ensure-directories-exist (uiop:strcat  username "/"))
 		(make-private-rsa-key private-key-filename)
 		(make-public-rsa-key private-key-filename public-key-filename)))
-
+(defvar my-keys (make-rsa-key-pair "mksybr"))
 (defvar *app* (make-instance 'ningle:app))
 (defvar port 5000)
 
@@ -93,7 +93,7 @@
 		(uiop:run-program "date +'%FT%R:%SZ'" :output *standard-output*)
 		(string-trim '(#\Newline) (get-output-stream-string *standard-output*))))
 
-;; (make-rsa-key-pair "mksybr")
+
 
 (defun sign (private-key message)
 	(let* ((echo (uiop:launch-program (uiop:strcat "echo " message) :output :stream))
@@ -123,7 +123,7 @@ date: " (iso8601-now)))
 host: mastodon.social
 date: " (iso8601-now))))
 (defvar header (uiop:strcat "keyId=\"http://social.mksybr.com/actor\",headers=\"(request-target) host date\",signature=\"" signature "\""))
-(dex:post "https://mastodon.social/inbox" :headers '(("Host"  . "mastodon.social")
-																										 ("Date" . (iso8601-now))
-																										 ("Signature" . header))
-																					:content `(("Body" . ,(deliver-json))))
+;; (dex:post "https://mastodon.social/inbox" :headers '(("Host"  . "mastodon.social")
+;; 																										 ("Date" . (iso8601-now))
+;; 																										 ("Signature" . header))
+;; 																					:content `(("Body" . ,(deliver-json))))
