@@ -4,6 +4,7 @@
 (named-readtables:in-readtable rutils-readtable)
 (in-package :cl-user)
 
+
 (defun make-private-rsa-key (filename)
 	(uiop:run-program (uiop:strcat "openssl  genpkey -algorithm RSA -out " filename)))
 
@@ -25,9 +26,7 @@
 (defvar port 5000)
 (defvar url (rtl:strjoin "" `("http://localhost:" ,port "/")))
 (defvar name "mksybr")
-(setf (ning(defun private-key ()
-	(let ((pkey (cffi:foreign-funcall "EVP_PKEY_new" :pointer)y))))
-le:route *app* "/")
+(setf (ningle:route *app* "/actor")
 			#'(lambda (params)
 					(setf (lack.response:response-headers ningle:*response*)
 								(append (lack.response:response-headers ningle:*response*)
@@ -51,7 +50,19 @@ le:route *app* "/")
       #'(lambda (params)
 					))
 
-(setf (ningle:route *app* "/.well-known")
+(setf (ningle:route *app* "/.well-known/")
+			#'(lambda (params)
+					(setf (lack.response:response-headers ningle:*response*)
+								(append (lack.response:response-headers ningle:*response*)
+												(list :content-type "application/json")))
+								(JONATHAN.ENCODE:TO-JSON
+								 (list
+									:|links|
+									:|.well-known|
+									#h(:|type| "application/activity+json"
+											:|href| "http://localhost:5000/.well-known")))))
+
+(setf (ningle:route *app* "/.well-known/web-finger")
 			#'(lambda (params)
 					(setf (lack.response:response-headers ningle:*response*)
 								(append (lack.response:response-headers ningle:*response*)
